@@ -4,7 +4,32 @@
   
     
     <entry>
-      <title>LeNet</title>
+      <title>Hello World</title>
+      <link href="/2022/04/16/other/hello-world/"/>
+      <url>/2022/04/16/other/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p><hr><p>附上链接：<br><a href="https://github.com/hexojs/hexo/issues">vdskl</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>AlexNet</title>
       <link href="/2022/04/16/deeplearning/AlexNet/"/>
       <url>/2022/04/16/deeplearning/AlexNet/</url>
       
@@ -21,6 +46,10 @@
         <tags>
             
             <tag> deeplearning </tag>
+            
+            <tag> python </tag>
+            
+            <tag> pytorch </tag>
             
         </tags>
       
@@ -47,6 +76,68 @@
             
             <tag> deeplearning </tag>
             
+            <tag> python </tag>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>NiN</title>
+      <link href="/2022/04/16/deeplearning/NiN/"/>
+      <url>/2022/04/16/deeplearning/NiN/</url>
+      
+        <content type="html"><![CDATA[<h1 id="NiN"><a href="#NiN" class="headerlink" title="NiN"></a>NiN</h1><h2 id="NiN块"><a href="#NiN块" class="headerlink" title="NiN块"></a>NiN块</h2><p>NiN块以⼀个普通卷积层开始，后⾯是两个$1 \times 1$的卷积层。这两个$1 \times 1$卷积层充当带有ReLU激活函数的逐像素全连接层。第⼀层的卷积窗口形状通常由⽤⼾<br>设置，随后的卷积窗口形状固定为$1 \times 1$。</p><p>所以NiN块可以定义为：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">nin</span>(<span class="params">in_channels, out_channels, kernel_size, strides, padding</span>):</span><br><span class="line">    nin_block = nn.Sequential(</span><br><span class="line">        nn.Conv2d(in_channels, out_channels, kernel_size, strides, padding),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Conv2d(out_channels, out_channels, kernel_size=<span class="number">1</span>),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Conv2d(out_channels, out_channels, kernel_size=<span class="number">1</span>),</span><br><span class="line">        nn.ReLU())</span><br><span class="line">    <span class="keyword">return</span> nin_block</span><br></pre></td></tr></table></figure><p>NiN块和NiN的架构如下：</p><div align="center"><img src = "https://s2.loli.net/2022/04/12/MrzfdjGgRYlWV7k.png" width="50%"><br>VGG块及其网络架构（左）NiN块及其网络架构（右）</div><p>基于pytorch实现NiN网络的模型搭建如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">in_channels = <span class="number">1</span></span><br><span class="line">num_classes = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">nin_net = nn.Sequential(</span><br><span class="line">    nin(in_channels, <span class="number">96</span>, kernel_size=<span class="number">11</span>, strides=<span class="number">4</span>, padding=<span class="number">0</span>),</span><br><span class="line">    nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nin(<span class="number">96</span>, <span class="number">256</span>, kernel_size=<span class="number">5</span>, strides=<span class="number">1</span>, padding=<span class="number">2</span>),</span><br><span class="line">    nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nin(<span class="number">256</span>, <span class="number">384</span>, kernel_size=<span class="number">3</span>, strides=<span class="number">1</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nn.Dropout(p=<span class="number">0.5</span>),</span><br><span class="line">    nin(<span class="number">384</span>, num_classes, kernel_size=<span class="number">3</span>, strides=<span class="number">1</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.AdaptiveAvgPool2d((<span class="number">1</span>, <span class="number">1</span>)),</span><br><span class="line">    nn.Flatten())</span><br></pre></td></tr></table></figure><h2 id="模型检验"><a href="#模型检验" class="headerlink" title="模型检验"></a>模型检验</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X = torch.randn(size=(in_channels, <span class="number">1</span>, <span class="number">224</span>, <span class="number">224</span>))</span><br><span class="line">net = nin_net</span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> net:</span><br><span class="line">    X = layer(X)</span><br><span class="line">    <span class="built_in">print</span>(layer.__class__.__name__,<span class="string">&#x27;output shape: \t&#x27;</span>,X.shape)</span><br></pre></td></tr></table></figure><p>结果为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Sequential output shape:  torch.Size([1, 96, 54, 54])</span><br><span class="line">MaxPool2d output shape:  torch.Size([1, 96, 26, 26])</span><br><span class="line">Sequential output shape:  torch.Size([1, 256, 26, 26])</span><br><span class="line">MaxPool2d output shape:  torch.Size([1, 256, 12, 12])</span><br><span class="line">Sequential output shape:  torch.Size([1, 384, 12, 12])</span><br><span class="line">MaxPool2d output shape:  torch.Size([1, 384, 5, 5])</span><br><span class="line">Dropout output shape:          torch.Size([1, 384, 5, 5])</span><br><span class="line">Sequential output shape:  torch.Size([1, 10, 5, 5])</span><br><span class="line">AdaptiveAvgPool2d output shape:  torch.Size([1, 10, 1, 1])</span><br><span class="line">Flatten output shape:          torch.Size([1, 10])</span><br></pre></td></tr></table></figure><p>NiN使用分别使用了$11\times 11$、$5\times 5$和$3\times 3$的卷积核。每个NiN块后有一个最大池化层，核为$3\times 3$，步幅为2。</p><p>NiN和AlexNet之间的一个显著区别是NiN完全取消了全连接层。NiN使用的是一个NiN块，其输出通道数等于标签类别的数量。最后放一个<em>全局平均汇聚层</em>，生成一个<em>对数几率</em>。</p><p>NiN设计的一个优点是，它显著减少了模型所需参数的数量，但是有时会增加训练模型的时间。</p><h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p><em>后补</em></p><h2 id="模型检测"><a href="#模型检测" class="headerlink" title="模型检测"></a>模型检测</h2><p><em>后补</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> deeplearning </tag>
+            
+            <tag> python </tag>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VGG</title>
+      <link href="/2022/04/16/deeplearning/Vgg/"/>
+      <url>/2022/04/16/deeplearning/Vgg/</url>
+      
+        <content type="html"><![CDATA[<h1 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h1><h2 id="VGG块"><a href="#VGG块" class="headerlink" title="VGG块"></a>VGG块</h2><p>VGG块与经典卷积神经网络一样，由一系列卷积层、激活函数和汇聚层组成，每一个VGG块只有卷积层个数、输入通道数和输出通道数不一样，所以，一个VGG块可以定义为：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">vgg_block</span>(<span class="params">num_convs, in_channels, out_channels</span>):</span><br><span class="line">    layers = []</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(num_convs):</span><br><span class="line">        layers.append(nn.Conv2d(in_channels, out_channels, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>))</span><br><span class="line">        layers.append(nn.ReLU())</span><br><span class="line">        in_channels = out_channels</span><br><span class="line">    layers.append(nn.MaxPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>))</span><br><span class="line">    <span class="keyword">return</span> nn.Sequential(*layers)</span><br></pre></td></tr></table></figure><p>VGG神经网络就是由多个不同卷积层个数、输入通道数和输出通道数的VGG块共同组成卷积层，最后再连接3个全连接层组成整个神经网络，其架构如图所示：</p><div align="center"><img src = "https://s2.loli.net/2022/04/12/lr2zdoiLY5qActh.png" width = "75%"><br>AlexNet架构图（左）VGG块（中） VGG架构图（右）</div><p>基于pytorch实现AlexNet网络的模型搭建如下：</p><h2 id="模型建立"><a href="#模型建立" class="headerlink" title="模型建立"></a>模型建立</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">vggnet</span>(<span class="params">conv, num_classes</span>):</span><br><span class="line">    conv_layers = []</span><br><span class="line">    in_channels = <span class="number">1</span></span><br><span class="line">    <span class="comment"># 调用VGG块定义卷积层模块</span></span><br><span class="line">    <span class="keyword">for</span> (num_convs, out_channels) <span class="keyword">in</span> conv:</span><br><span class="line">        conv_layers.append(vgg_block(num_convs, in_channels, out_channels))</span><br><span class="line">        in_channels = out_channels</span><br><span class="line"></span><br><span class="line">    net_vgg = nn.Sequential(</span><br><span class="line">        *conv_layers,</span><br><span class="line">        nn.Flatten(),</span><br><span class="line">        nn.Linear(out_channels * <span class="number">7</span> * <span class="number">7</span>, <span class="number">4096</span>),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Dropout(p=<span class="number">0.5</span>),</span><br><span class="line">        nn.Linear(<span class="number">4096</span>, <span class="number">4096</span>),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Dropout(p=<span class="number">0.5</span>),</span><br><span class="line">        nn.Linear(<span class="number">4096</span>, num_classes),</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">return</span> net_vgg</span><br></pre></td></tr></table></figure><p>定义不同的vgg块：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conv11 = ((<span class="number">1</span>, <span class="number">64</span>), (<span class="number">1</span>, <span class="number">128</span>), (<span class="number">2</span>, <span class="number">256</span>), (<span class="number">2</span>, <span class="number">512</span>), (<span class="number">2</span>, <span class="number">512</span>)) <span class="comment"># VGG_11</span></span><br><span class="line">conv13 = ((<span class="number">2</span>, <span class="number">64</span>), (<span class="number">2</span>, <span class="number">128</span>), (<span class="number">2</span>, <span class="number">256</span>), (<span class="number">2</span>, <span class="number">512</span>), (<span class="number">2</span>, <span class="number">512</span>)) <span class="comment"># VGG_13</span></span><br><span class="line">conv16 = ((<span class="number">2</span>, <span class="number">64</span>), (<span class="number">2</span>, <span class="number">128</span>), (<span class="number">3</span>, <span class="number">256</span>), (<span class="number">3</span>, <span class="number">512</span>), (<span class="number">3</span>, <span class="number">512</span>)) <span class="comment"># VGG_16</span></span><br><span class="line">conv19 = ((<span class="number">2</span>, <span class="number">64</span>), (<span class="number">2</span>, <span class="number">128</span>), (<span class="number">4</span>, <span class="number">256</span>), (<span class="number">4</span>, <span class="number">512</span>), (<span class="number">4</span>, <span class="number">512</span>)) <span class="comment"># VGG_19</span></span><br><span class="line">num_classes = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">net = vggnet(conv16, num_classes)</span><br></pre></td></tr></table></figure><h2 id="模型检验"><a href="#模型检验" class="headerlink" title="模型检验"></a>模型检验</h2><p>构建一个高度和宽度为224的单通道数据样本，观察每个层输出的形状</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X = torch.randn(size=(<span class="number">1</span>, <span class="number">1</span>, <span class="number">224</span>, <span class="number">224</span>))</span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> net:</span><br><span class="line">    X = layer(X)</span><br><span class="line">    <span class="built_in">print</span>(layer.__class__.__name__,<span class="string">&#x27;output shape: \t&#x27;</span>,X.shape)</span><br></pre></td></tr></table></figure><p>结果为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Sequential output shape:   torch.Size([1, 64, 112, 112])</span><br><span class="line">Sequential output shape:   torch.Size([1, 128, 56, 56])</span><br><span class="line">Sequential output shape:   torch.Size([1, 256, 28, 28])</span><br><span class="line">Sequential output shape:   torch.Size([1, 512, 14, 14])</span><br><span class="line">Sequential output shape:   torch.Size([1, 512, 7, 7])</span><br><span class="line">Flatten output shape:    torch.Size([1, 25088])</span><br><span class="line">Linear output shape:    torch.Size([1, 4096])</span><br><span class="line">ReLU output shape:    torch.Size([1, 4096])</span><br><span class="line">Dropout output shape:     torch.Size([1, 4096])</span><br><span class="line">Linear output shape:    torch.Size([1, 4096])</span><br><span class="line">ReLU output shape:     torch.Size([1, 4096])</span><br><span class="line">Dropout output shape:    torch.Size([1, 4096])</span><br><span class="line">Linear output shape:    torch.Size([1, 1000])</span><br></pre></td></tr></table></figure><p>在经过每一个VGG块后，图像高宽减半，通道数增加。从上面四个VGG模型可以看到，无论是VGG多少，都有5个VGG模块，而且这五个模块仅仅是num_convs不一样，每一个模块对应的out_channels是一样的。</p><p>由于VGG所含有的卷积层更多，网络更深，所以计算量比AlexNet更大，计算也慢很多。</p><h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p><em>后补</em></p><h2 id="模型检测"><a href="#模型检测" class="headerlink" title="模型检测"></a>模型检测</h2><p><em>后补</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> deeplearning </tag>
+            
+            <tag> python </tag>
+            
+            <tag> pytorch </tag>
+            
         </tags>
       
     </entry>
@@ -58,7 +149,7 @@
       <link href="/2022/04/15/code/test/"/>
       <url>/2022/04/15/code/test/</url>
       
-        <content type="html"><![CDATA[<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">torch.cuda.is_avilable()</span><br></pre></td></tr></table></figure><div class="flink"><div class="flink-name">友情链接</div><div class="flink-desc">那些人，那些事</div> <div class="flink-list">          <div class="flink-list-item">            <a href="https://deepz.cc/2022/04/iphone/" title="zjh" target="_blank">              <div class="flink-item-icon">                <img class="no-lightbox" src="https://s2.loli.net/2022/04/16/OVpnsXRKwLSNTih.png" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="zjh" />              </div>              <div class="flink-item-name">zjh</div>               <div class="flink-item-desc" title="三百块">三百块</div>            </a>          </div></div></div>]]></content>
+        <content type="html"><![CDATA[<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">torch.cuda.is_avilable()</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -71,31 +162,6 @@
         <tags>
             
             <tag> python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2022/04/14/hello-world/"/>
-      <url>/2022/04/14/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 工具 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
             
         </tags>
       
