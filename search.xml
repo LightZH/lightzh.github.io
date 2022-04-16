@@ -4,36 +4,11 @@
   
     
     <entry>
-      <title>相册</title>
-      <link href="/2022/04/15/image/"/>
-      <url>/2022/04/15/image/</url>
-      
-        <content type="html"><![CDATA[<div class="gallery-group-main">   <figure class="gallery-group">  <img class="gallery-group-img no-lightbox" src='https://i.loli.net/2019/11/10/T7Mu8Aod3egmC4Q.png' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">壁纸</div>  <p>收藏的一些壁纸</p>  <a href='/Gallery/wallpaper'></a>  </figcaption>  </figure>     <figure class="gallery-group">  <img class="gallery-group-img no-lightbox" src='https://i.loli.net/2019/12/25/8t97aVlp4hgyBGu.jpg' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">漫威</div>  <p>关于漫威的图片</p>  <a href='/Gallery/marvel'></a>  </figcaption>  </figure>     <figure class="gallery-group">  <img class="gallery-group-img no-lightbox" src='https://i.loli.net/2019/12/25/hOqbQ3BIwa6KWpo.jpg' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">OH MY GIRL</div>  <p>关于OH MY GIRL的图片</p>  <a href='/Gallery/ohmygirl'></a>  </figcaption>  </figure>   </div><div class="fj-gallery"><p><img src="https://i.loli.net/2019/12/25/Fze9jchtnyJXMHN.jpg"><br><img src="https://i.loli.net/2019/12/25/ryLVePaqkYm4TEK.jpg"><br><img src="https://i.loli.net/2019/12/25/gEy5Zc1Ai6VuO4N.jpg"><br><img src="https://i.loli.net/2019/12/25/d6QHbytlSYO4FBG.jpg"><br><img src="https://i.loli.net/2019/12/25/6nepIJ1xTgufatZ.jpg"><br><img src="https://i.loli.net/2019/12/25/E7Jvr4eIPwUNmzq.jpg"><br><img src="https://i.loli.net/2019/12/25/mh19anwBSWIkGlH.jpg"><br><img src="https://i.loli.net/2019/12/25/2tu9JC8ewpBFagv.jpg"> </p>          </div>]]></content>
-      
-      
-      <categories>
-          
-          <category> 相册 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> photo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>代码演示</title>
       <link href="/2022/04/15/code/test/"/>
       <url>/2022/04/15/code/test/</url>
       
-        <content type="html"><![CDATA[<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">torch.cuda.is_avilable()</span><br></pre></td></tr></table></figure><div class="flink"><div class="flink-name">友情链接</div><div class="flink-desc">那些人，那些事</div> <div class="flink-list">          <div class="flink-list-item">            <a href="https://deepz.cc/" title="zjh" target="_blank">              <div class="flink-item-icon">                <img class="no-lightbox" src="https://jerryc.me/img/avatar.png" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="zjh" />              </div>              <div class="flink-item-name">zjh</div>               <div class="flink-item-desc" title="zjh">zjh</div>            </a>          </div></div></div>]]></content>
+        <content type="html"><![CDATA[<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">torch.cuda.is_avilable()</span><br></pre></td></tr></table></figure><div class="flink"><div class="flink-name">友情链接</div><div class="flink-desc">那些人，那些事</div> <div class="flink-list">          <div class="flink-list-item">            <a href="https://deepz.cc/2022/04/iphone/" title="zjh" target="_blank">              <div class="flink-item-icon">                <img class="no-lightbox" src="https://s2.loli.net/2022/04/16/OVpnsXRKwLSNTih.png" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="zjh" />              </div>              <div class="flink-item-name">zjh</div>               <div class="flink-item-desc" title="三百块">三百块</div>            </a>          </div></div></div>]]></content>
       
       
       <categories>
