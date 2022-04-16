@@ -29,7 +29,7 @@
     
     
     <entry>
-      <title>AlexNet</title>
+      <title>深度学习（二）AlexNet</title>
       <link href="/2022/04/16/deeplearning/AlexNet/"/>
       <url>/2022/04/16/deeplearning/AlexNet/</url>
       
@@ -38,16 +38,16 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> 深度学习 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> deeplearning </tag>
-            
             <tag> python </tag>
+            
+            <tag> deeplearning </tag>
             
             <tag> pytorch </tag>
             
@@ -58,36 +58,7 @@
     
     
     <entry>
-      <title>NiN</title>
-      <link href="/2022/04/16/deeplearning/NiN/"/>
-      <url>/2022/04/16/deeplearning/NiN/</url>
-      
-        <content type="html"><![CDATA[<h1 id="NiN"><a href="#NiN" class="headerlink" title="NiN"></a>NiN</h1><h2 id="NiN块"><a href="#NiN块" class="headerlink" title="NiN块"></a>NiN块</h2><p>NiN块以⼀个普通卷积层开始，后⾯是两个$1 \times 1$的卷积层。这两个$1 \times 1$卷积层充当带有ReLU激活函数的逐像素全连接层。第⼀层的卷积窗口形状通常由⽤⼾<br>设置，随后的卷积窗口形状固定为$1 \times 1$。</p><p>所以NiN块可以定义为：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">nin</span>(<span class="params">in_channels, out_channels, kernel_size, strides, padding</span>):</span><br><span class="line">    nin_block = nn.Sequential(</span><br><span class="line">        nn.Conv2d(in_channels, out_channels, kernel_size, strides, padding),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Conv2d(out_channels, out_channels, kernel_size=<span class="number">1</span>),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Conv2d(out_channels, out_channels, kernel_size=<span class="number">1</span>),</span><br><span class="line">        nn.ReLU())</span><br><span class="line">    <span class="keyword">return</span> nin_block</span><br></pre></td></tr></table></figure><p>NiN块和NiN的架构如下：</p><div align="center"><img src = "https://s2.loli.net/2022/04/12/MrzfdjGgRYlWV7k.png" width="50%"><br>VGG块及其网络架构（左）NiN块及其网络架构（右）</div><p>基于pytorch实现NiN网络的模型搭建如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">in_channels = <span class="number">1</span></span><br><span class="line">num_classes = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">nin_net = nn.Sequential(</span><br><span class="line">    nin(in_channels, <span class="number">96</span>, kernel_size=<span class="number">11</span>, strides=<span class="number">4</span>, padding=<span class="number">0</span>),</span><br><span class="line">    nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nin(<span class="number">96</span>, <span class="number">256</span>, kernel_size=<span class="number">5</span>, strides=<span class="number">1</span>, padding=<span class="number">2</span>),</span><br><span class="line">    nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nin(<span class="number">256</span>, <span class="number">384</span>, kernel_size=<span class="number">3</span>, strides=<span class="number">1</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nn.Dropout(p=<span class="number">0.5</span>),</span><br><span class="line">    nin(<span class="number">384</span>, num_classes, kernel_size=<span class="number">3</span>, strides=<span class="number">1</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.AdaptiveAvgPool2d((<span class="number">1</span>, <span class="number">1</span>)),</span><br><span class="line">    nn.Flatten())</span><br></pre></td></tr></table></figure><h2 id="模型检验"><a href="#模型检验" class="headerlink" title="模型检验"></a>模型检验</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X = torch.randn(size=(in_channels, <span class="number">1</span>, <span class="number">224</span>, <span class="number">224</span>))</span><br><span class="line">net = nin_net</span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> net:</span><br><span class="line">    X = layer(X)</span><br><span class="line">    <span class="built_in">print</span>(layer.__class__.__name__,<span class="string">&#x27;output shape: \t&#x27;</span>,X.shape)</span><br></pre></td></tr></table></figure><p>结果为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Sequential output shape:  torch.Size([1, 96, 54, 54])</span><br><span class="line">MaxPool2d output shape:  torch.Size([1, 96, 26, 26])</span><br><span class="line">Sequential output shape:  torch.Size([1, 256, 26, 26])</span><br><span class="line">MaxPool2d output shape:  torch.Size([1, 256, 12, 12])</span><br><span class="line">Sequential output shape:  torch.Size([1, 384, 12, 12])</span><br><span class="line">MaxPool2d output shape:  torch.Size([1, 384, 5, 5])</span><br><span class="line">Dropout output shape:          torch.Size([1, 384, 5, 5])</span><br><span class="line">Sequential output shape:  torch.Size([1, 10, 5, 5])</span><br><span class="line">AdaptiveAvgPool2d output shape:  torch.Size([1, 10, 1, 1])</span><br><span class="line">Flatten output shape:          torch.Size([1, 10])</span><br></pre></td></tr></table></figure><p>NiN使用分别使用了$11\times 11$、$5\times 5$和$3\times 3$的卷积核。每个NiN块后有一个最大池化层，核为$3\times 3$，步幅为2。</p><p>NiN和AlexNet之间的一个显著区别是NiN完全取消了全连接层。NiN使用的是一个NiN块，其输出通道数等于标签类别的数量。最后放一个<em>全局平均汇聚层</em>，生成一个<em>对数几率</em>。</p><p>NiN设计的一个优点是，它显著减少了模型所需参数的数量，但是有时会增加训练模型的时间。</p><h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p><em>后补</em></p><h2 id="模型检测"><a href="#模型检测" class="headerlink" title="模型检测"></a>模型检测</h2><p><em>后补</em></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> deeplearning </tag>
-            
-            <tag> python </tag>
-            
-            <tag> pytorch </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>LeNet</title>
+      <title>深度学习(一)LeNet</title>
       <link href="/2022/04/16/deeplearning/LeNet/"/>
       <url>/2022/04/16/deeplearning/LeNet/</url>
       
@@ -96,16 +67,16 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> 深度学习 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> deeplearning </tag>
-            
             <tag> python </tag>
+            
+            <tag> deeplearning </tag>
             
             <tag> pytorch </tag>
             
@@ -116,7 +87,7 @@
     
     
     <entry>
-      <title>VGG</title>
+      <title>深度学习（四）VGG</title>
       <link href="/2022/04/16/deeplearning/Vgg/"/>
       <url>/2022/04/16/deeplearning/Vgg/</url>
       
@@ -125,16 +96,45 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> 深度学习 </category>
           
       </categories>
       
       
         <tags>
             
+            <tag> python </tag>
+            
             <tag> deeplearning </tag>
             
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>深度学习（三）NiN</title>
+      <link href="/2022/04/16/deeplearning/NiN/"/>
+      <url>/2022/04/16/deeplearning/NiN/</url>
+      
+        <content type="html"><![CDATA[<h1 id="NiN"><a href="#NiN" class="headerlink" title="NiN"></a>NiN</h1><h2 id="NiN块"><a href="#NiN块" class="headerlink" title="NiN块"></a>NiN块</h2><p>NiN块以⼀个普通卷积层开始，后⾯是两个$1 \times 1$的卷积层。这两个$1 \times 1$卷积层充当带有ReLU激活函数的逐像素全连接层。第⼀层的卷积窗口形状通常由⽤⼾<br>设置，随后的卷积窗口形状固定为$1 \times 1$。</p><p>所以NiN块可以定义为：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">nin</span>(<span class="params">in_channels, out_channels, kernel_size, strides, padding</span>):</span><br><span class="line">    nin_block = nn.Sequential(</span><br><span class="line">        nn.Conv2d(in_channels, out_channels, kernel_size, strides, padding),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Conv2d(out_channels, out_channels, kernel_size=<span class="number">1</span>),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Conv2d(out_channels, out_channels, kernel_size=<span class="number">1</span>),</span><br><span class="line">        nn.ReLU())</span><br><span class="line">    <span class="keyword">return</span> nin_block</span><br></pre></td></tr></table></figure><p>NiN块和NiN的架构如下：</p><div align="center"><img src = "https://s2.loli.net/2022/04/12/MrzfdjGgRYlWV7k.png" width="50%"><br>VGG块及其网络架构（左）NiN块及其网络架构（右）</div><p>基于pytorch实现NiN网络的模型搭建如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">in_channels = <span class="number">1</span></span><br><span class="line">num_classes = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">nin_net = nn.Sequential(</span><br><span class="line">    nin(in_channels, <span class="number">96</span>, kernel_size=<span class="number">11</span>, strides=<span class="number">4</span>, padding=<span class="number">0</span>),</span><br><span class="line">    nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nin(<span class="number">96</span>, <span class="number">256</span>, kernel_size=<span class="number">5</span>, strides=<span class="number">1</span>, padding=<span class="number">2</span>),</span><br><span class="line">    nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nin(<span class="number">256</span>, <span class="number">384</span>, kernel_size=<span class="number">3</span>, strides=<span class="number">1</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nn.Dropout(p=<span class="number">0.5</span>),</span><br><span class="line">    nin(<span class="number">384</span>, num_classes, kernel_size=<span class="number">3</span>, strides=<span class="number">1</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.AdaptiveAvgPool2d((<span class="number">1</span>, <span class="number">1</span>)),</span><br><span class="line">    nn.Flatten())</span><br></pre></td></tr></table></figure><h2 id="模型检验"><a href="#模型检验" class="headerlink" title="模型检验"></a>模型检验</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X = torch.randn(size=(in_channels, <span class="number">1</span>, <span class="number">224</span>, <span class="number">224</span>))</span><br><span class="line">net = nin_net</span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> net:</span><br><span class="line">    X = layer(X)</span><br><span class="line">    <span class="built_in">print</span>(layer.__class__.__name__,<span class="string">&#x27;output shape: \t&#x27;</span>,X.shape)</span><br></pre></td></tr></table></figure><p>结果为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Sequential output shape:  torch.Size([1, 96, 54, 54])</span><br><span class="line">MaxPool2d output shape:  torch.Size([1, 96, 26, 26])</span><br><span class="line">Sequential output shape:  torch.Size([1, 256, 26, 26])</span><br><span class="line">MaxPool2d output shape:  torch.Size([1, 256, 12, 12])</span><br><span class="line">Sequential output shape:  torch.Size([1, 384, 12, 12])</span><br><span class="line">MaxPool2d output shape:  torch.Size([1, 384, 5, 5])</span><br><span class="line">Dropout output shape:          torch.Size([1, 384, 5, 5])</span><br><span class="line">Sequential output shape:  torch.Size([1, 10, 5, 5])</span><br><span class="line">AdaptiveAvgPool2d output shape:  torch.Size([1, 10, 1, 1])</span><br><span class="line">Flatten output shape:          torch.Size([1, 10])</span><br></pre></td></tr></table></figure><p>NiN使用分别使用了$11\times 11$、$5\times 5$和$3\times 3$的卷积核。每个NiN块后有一个最大池化层，核为$3\times 3$，步幅为2。</p><p>NiN和AlexNet之间的一个显著区别是NiN完全取消了全连接层。NiN使用的是一个NiN块，其输出通道数等于标签类别的数量。最后放一个<em>全局平均汇聚层</em>，生成一个<em>对数几率</em>。</p><p>NiN设计的一个优点是，它显著减少了模型所需参数的数量，但是有时会增加训练模型的时间。</p><h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p><em>后补</em></p><h2 id="模型检测"><a href="#模型检测" class="headerlink" title="模型检测"></a>模型检测</h2><p><em>后补</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
             <tag> python </tag>
+            
+            <tag> deeplearning </tag>
             
             <tag> pytorch </tag>
             
