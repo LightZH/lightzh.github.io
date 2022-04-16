@@ -45,38 +45,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> deeplearning </tag>
             
-            <tag> pytorch </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>LeNet</title>
-      <link href="/2022/04/16/deeplearning/LeNet/"/>
-      <url>/2022/04/16/deeplearning/LeNet/</url>
-      
-        <content type="html"><![CDATA[<h1 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h1><p>LeNet由2个卷积层和3个全连接层组成，每个卷积层之后有一个Sigmoid激活函数和一个AvgPool2d平均汇聚层，前两层全连接层之后也有一个Sigmoid激活函数。<br>具体模型架构如图：</p><div align="center"><img src="https://s2.loli.net/2022/04/12/gbHLmzsX6plwTN3.png" width="65%"><br>LeNet模型图</div><div align="center"><img src="https://s2.loli.net/2022/04/12/o8GwAdvHScxPang.jpg" width="20%"><br>LeNet网络架构图</div><p>基于pytorch实现LeNet网络的模型搭建如下：</p><h2 id="模型建立"><a href="#模型建立" class="headerlink" title="模型建立"></a>模型建立</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LeNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, in_channels, num_classes</span>):</span><br><span class="line">        <span class="built_in">super</span>(LeNet, self).__init__()</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        num_classes:分类的数量</span></span><br><span class="line"><span class="string">        in_channels:原始图像通道数,灰度图像为1,彩色图像为3</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.num_classes = num_classes</span><br><span class="line">        self.lenet = nn.Sequential(</span><br><span class="line">            nn.Conv2d(in_channels, <span class="number">6</span>, kernel_size=<span class="number">5</span>),  <span class="comment"># (32 - 5) / 1 + 1 = 28   [3, 32, 32] -&gt; [6, 28, 28]</span></span><br><span class="line">            nn.Sigmoid(),</span><br><span class="line">            nn.AvgPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>),  <span class="comment"># 28 / 2 = 14   [6, 28, 28] -&gt; [6, 14, 14]</span></span><br><span class="line">            nn.Conv2d(<span class="number">6</span>, <span class="number">16</span>, kernel_size=<span class="number">5</span>),  <span class="comment"># (14 - 5) / 1 + 1 = 10   [6, 14, 14] -&gt; [16, 10, 10]</span></span><br><span class="line">            nn.Sigmoid(),</span><br><span class="line">            nn.AvgPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>), <span class="comment"># 10 / 2 = 5   [16, 10, 10] -&gt; [16, 5, 5]</span></span><br><span class="line">            nn.Flatten(), <span class="comment"># 展平</span></span><br><span class="line">            nn.Linear(<span class="number">16</span> * <span class="number">5</span> * <span class="number">5</span>, <span class="number">120</span>),</span><br><span class="line">            nn.Sigmoid(),</span><br><span class="line">            nn.Linear(<span class="number">120</span>, <span class="number">84</span>),</span><br><span class="line">            nn.Sigmoid(),</span><br><span class="line">            nn.Linear(<span class="number">84</span>, num_classes)) <span class="comment"># 不需要使用激活函数，因为softmax激活函数被嵌入在交叉熵函数中</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        output = self.lenet(x)</span><br><span class="line">        <span class="comment"># probas = F.softmax(output, dim=1)</span></span><br><span class="line">        <span class="keyword">return</span> output <span class="comment">#, probas</span></span><br></pre></td></tr></table></figure><h2 id="模型检验"><a href="#模型检验" class="headerlink" title="模型检验"></a>模型检验</h2><p>打印出各层的参数</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">num_classes = <span class="number">10</span></span><br><span class="line">in_channels = <span class="number">3</span></span><br><span class="line">X = torch.rand(size=(<span class="number">1</span>, in_channels, <span class="number">32</span>, <span class="number">32</span>), dtype=torch.float32)</span><br><span class="line">net = LeNet(in_channels, num_classes)</span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> net.lenet:</span><br><span class="line">  X = layer(X)</span><br><span class="line">  <span class="built_in">print</span>(layer.__class__.__name__,<span class="string">&#x27;output shape: \t&#x27;</span>,X.shape)</span><br></pre></td></tr></table></figure><p>结果为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Conv2d output shape:  torch.Size([1, 6, 28, 28])</span><br><span class="line">Sigmoid output shape:  torch.Size([1, 6, 28, 28])</span><br><span class="line">AvgPool2d output shape:  torch.Size([1, 6, 14, 14])</span><br><span class="line">Conv2d output shape:  torch.Size([1, 16, 10, 10])</span><br><span class="line">Sigmoid output shape:  torch.Size([1, 16, 10, 10])</span><br><span class="line">AvgPool2d output shape:  torch.Size([1, 16, 5, 5])</span><br><span class="line">Flatten output shape:  torch.Size([1, 400])</span><br><span class="line">Linear output shape:  torch.Size([1, 120])</span><br><span class="line">Sigmoid output shape:  torch.Size([1, 120])</span><br><span class="line">Linear output shape:  torch.Size([1, 84])</span><br><span class="line">Sigmoid output shape:  torch.Size([1, 84])</span><br><span class="line">Linear output shape:  torch.Size([1, 10])</span><br></pre></td></tr></table></figure><h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p><em>后补</em></p><h2 id="模型检测"><a href="#模型检测" class="headerlink" title="模型检测"></a>模型检测</h2><p><em>后补</em></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
             <tag> python </tag>
-            
-            <tag> deeplearning </tag>
             
             <tag> pytorch </tag>
             
@@ -103,9 +74,38 @@
       
         <tags>
             
+            <tag> deeplearning </tag>
+            
             <tag> python </tag>
             
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>LeNet</title>
+      <link href="/2022/04/16/deeplearning/LeNet/"/>
+      <url>/2022/04/16/deeplearning/LeNet/</url>
+      
+        <content type="html"><![CDATA[<h1 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h1><p>LeNet由2个卷积层和3个全连接层组成，每个卷积层之后有一个Sigmoid激活函数和一个AvgPool2d平均汇聚层，前两层全连接层之后也有一个Sigmoid激活函数。<br>具体模型架构如图：</p><div align="center"><img src="https://s2.loli.net/2022/04/12/gbHLmzsX6plwTN3.png" width="65%"><br>LeNet模型图</div><div align="center"><img src="https://s2.loli.net/2022/04/12/o8GwAdvHScxPang.jpg" width="20%"><br>LeNet网络架构图</div><p>基于pytorch实现LeNet网络的模型搭建如下：</p><h2 id="模型建立"><a href="#模型建立" class="headerlink" title="模型建立"></a>模型建立</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LeNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, in_channels, num_classes</span>):</span><br><span class="line">        <span class="built_in">super</span>(LeNet, self).__init__()</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        num_classes:分类的数量</span></span><br><span class="line"><span class="string">        in_channels:原始图像通道数,灰度图像为1,彩色图像为3</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.num_classes = num_classes</span><br><span class="line">        self.lenet = nn.Sequential(</span><br><span class="line">            nn.Conv2d(in_channels, <span class="number">6</span>, kernel_size=<span class="number">5</span>),  <span class="comment"># (32 - 5) / 1 + 1 = 28   [3, 32, 32] -&gt; [6, 28, 28]</span></span><br><span class="line">            nn.Sigmoid(),</span><br><span class="line">            nn.AvgPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>),  <span class="comment"># 28 / 2 = 14   [6, 28, 28] -&gt; [6, 14, 14]</span></span><br><span class="line">            nn.Conv2d(<span class="number">6</span>, <span class="number">16</span>, kernel_size=<span class="number">5</span>),  <span class="comment"># (14 - 5) / 1 + 1 = 10   [6, 14, 14] -&gt; [16, 10, 10]</span></span><br><span class="line">            nn.Sigmoid(),</span><br><span class="line">            nn.AvgPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>), <span class="comment"># 10 / 2 = 5   [16, 10, 10] -&gt; [16, 5, 5]</span></span><br><span class="line">            nn.Flatten(), <span class="comment"># 展平</span></span><br><span class="line">            nn.Linear(<span class="number">16</span> * <span class="number">5</span> * <span class="number">5</span>, <span class="number">120</span>),</span><br><span class="line">            nn.Sigmoid(),</span><br><span class="line">            nn.Linear(<span class="number">120</span>, <span class="number">84</span>),</span><br><span class="line">            nn.Sigmoid(),</span><br><span class="line">            nn.Linear(<span class="number">84</span>, num_classes)) <span class="comment"># 不需要使用激活函数，因为softmax激活函数被嵌入在交叉熵函数中</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        output = self.lenet(x)</span><br><span class="line">        <span class="comment"># probas = F.softmax(output, dim=1)</span></span><br><span class="line">        <span class="keyword">return</span> output <span class="comment">#, probas</span></span><br></pre></td></tr></table></figure><h2 id="模型检验"><a href="#模型检验" class="headerlink" title="模型检验"></a>模型检验</h2><p>打印出各层的参数</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">num_classes = <span class="number">10</span></span><br><span class="line">in_channels = <span class="number">3</span></span><br><span class="line">X = torch.rand(size=(<span class="number">1</span>, in_channels, <span class="number">32</span>, <span class="number">32</span>), dtype=torch.float32)</span><br><span class="line">net = LeNet(in_channels, num_classes)</span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> net.lenet:</span><br><span class="line">  X = layer(X)</span><br><span class="line">  <span class="built_in">print</span>(layer.__class__.__name__,<span class="string">&#x27;output shape: \t&#x27;</span>,X.shape)</span><br></pre></td></tr></table></figure><p>结果为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Conv2d output shape:  torch.Size([1, 6, 28, 28])</span><br><span class="line">Sigmoid output shape:  torch.Size([1, 6, 28, 28])</span><br><span class="line">AvgPool2d output shape:  torch.Size([1, 6, 14, 14])</span><br><span class="line">Conv2d output shape:  torch.Size([1, 16, 10, 10])</span><br><span class="line">Sigmoid output shape:  torch.Size([1, 16, 10, 10])</span><br><span class="line">AvgPool2d output shape:  torch.Size([1, 16, 5, 5])</span><br><span class="line">Flatten output shape:  torch.Size([1, 400])</span><br><span class="line">Linear output shape:  torch.Size([1, 120])</span><br><span class="line">Sigmoid output shape:  torch.Size([1, 120])</span><br><span class="line">Linear output shape:  torch.Size([1, 84])</span><br><span class="line">Sigmoid output shape:  torch.Size([1, 84])</span><br><span class="line">Linear output shape:  torch.Size([1, 10])</span><br></pre></td></tr></table></figure><h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p><em>后补</em></p><h2 id="模型检测"><a href="#模型检测" class="headerlink" title="模型检测"></a>模型检测</h2><p><em>后补</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
             <tag> deeplearning </tag>
+            
+            <tag> python </tag>
             
             <tag> pytorch </tag>
             
@@ -132,9 +132,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> deeplearning </tag>
+            
+            <tag> python </tag>
             
             <tag> pytorch </tag>
             
