@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>缺陷检测综述</title>
+      <link href="/2022/04/26/defect/defect%20defection/"/>
+      <url>/2022/04/26/defect/defect%20defection/</url>
+      
+        <content type="html"><![CDATA[<font size=8><center>视觉缺陷检测方法综述</center></font><h1 id="图像获取"><a href="#图像获取" class="headerlink" title="图像获取"></a>图像获取</h1><p>组成：CCD摄像机、光学镜头、光源、夹持装置等。</p><p>光信号转换成电信号再转换成数字信号。</p><h1 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h1><h2 id="图像去噪"><a href="#图像去噪" class="headerlink" title="图像去噪"></a>图像去噪</h2><p>图像噪声对<br>后续的图像处理影响很⼤， 它影响图像处理的各个环节以及输出结果，因此， 在对图像处理前， 需要对待检测图像进⾏去噪处理，具体的方法有：</p><ul><li>数学形态学方法</li><li>小波方法</li></ul><h2 id="图像增强"><a href="#图像增强" class="headerlink" title="图像增强"></a>图像增强</h2><p>图像增强是指有⽬的地强调图像的整体或局部特性， 将原来不清晰的图像变得清晰或强调某些感兴趣的特征， 扩⼤图像中不同物体特征之间的差别， 抑制不感兴趣的特征， 使之改善图像质量、丰富信息量， 加强图像判读和识别效果的图像处理⽅法。</p><h2 id="图像复原"><a href="#图像复原" class="headerlink" title="图像复原"></a>图像复原</h2><p>图像复原是通过计算机处理， 对质量下降的图像加以重建或复原的处理过程。</p><h2 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h2><p>图像分割的⽬的是把图像中⽬标区域分割出来， 以便进⾏下⼀步的处理。</p><h3 id="基于区域的分割方法"><a href="#基于区域的分割方法" class="headerlink" title="基于区域的分割方法"></a>基于区域的分割方法</h3><ul><li>阈值分割法：通过设定不同的灰度阈值， 把图像像素点分为若⼲类。<br>具体方法有：固定阈值法、⾃适应阈值法、多区域阈值法等。</li><li>区域生长法：依据⼀定的⽣⻓准则， 将若⼲个相似⼦区域聚合成较⼤的区域</li><li>分裂——合并法：根据图像和各区域的不均匀性， 将图像或区域分裂成新的⼦区域， 再将包含相同内容的区域合并成新的较⼤区域， 最后得到分割图像。<br>具体方法有：四叉树分解法等。</li><li>聚类分割法：根据图像在特征空间的聚集对特征空间进⾏分割， 再映射到原图像空间得到分割结果。<br>具体方法有：K均值聚类算法、模糊C均值聚类(FCM)算法等。<h3 id="基于边缘的分割方法"><a href="#基于边缘的分割方法" class="headerlink" title="基于边缘的分割方法"></a>基于边缘的分割方法</h3></li></ul><h3 id="基于特定理论的分割方法"><a href="#基于特定理论的分割方法" class="headerlink" title="基于特定理论的分割方法"></a>基于特定理论的分割方法</h3><h1 id="图像分析"><a href="#图像分析" class="headerlink" title="图像分析"></a>图像分析</h1><h2 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h2><h3 id="纹理特征提取"><a href="#纹理特征提取" class="headerlink" title="纹理特征提取"></a>纹理特征提取</h3><h4 id="统计法"><a href="#统计法" class="headerlink" title="统计法"></a>统计法</h4><ul><li>直方图特征</li><li>灰度共生矩</li><li>局部二值模式(LBP)</li><li>自相关函数<h4 id="信号处理法"><a href="#信号处理法" class="headerlink" title="信号处理法"></a>信号处理法</h4></li><li>傅里叶变换</li><li>Gabor滤波</li><li>小波变换</li><li>Laws纹理<h4 id="结构法"><a href="#结构法" class="headerlink" title="结构法"></a>结构法</h4></li></ul><h4 id="模型法"><a href="#模型法" class="headerlink" title="模型法"></a>模型法</h4><ul><li>马尔可夫随机场模型(MRF)</li><li>分型模型</li><li>自回归模型<h3 id="形状特征提取"><a href="#形状特征提取" class="headerlink" title="形状特征提取"></a>形状特征提取</h3><h4 id="基于区域的特征提取"><a href="#基于区域的特征提取" class="headerlink" title="基于区域的特征提取"></a>基于区域的特征提取</h4></li><li>⼏何特征</li><li>拓扑结构特征</li><li>矩特征<h4 id="基于轮廓的特征提取"><a href="#基于轮廓的特征提取" class="headerlink" title="基于轮廓的特征提取"></a>基于轮廓的特征提取</h4></li><li>边界特征法(边界形状数、边界矩等)</li><li>简单⼏何特征(如周⻓、半径、曲率、边缘夹⻆)</li><li>基于变换域(如傅⾥叶描述符、⼩波描述符)</li><li>曲率尺度空间(CSS)</li><li>数学形态学</li><li>霍夫变换</li><li>⼩波描述符等<h3 id="颜色特征提取"><a href="#颜色特征提取" class="headerlink" title="颜色特征提取"></a>颜色特征提取</h3><h4 id="颜色直方图"><a href="#颜色直方图" class="headerlink" title="颜色直方图"></a>颜色直方图</h4><h4 id="颜色集"><a href="#颜色集" class="headerlink" title="颜色集"></a>颜色集</h4><h4 id="颜色矩"><a href="#颜色矩" class="headerlink" title="颜色矩"></a>颜色矩</h4><h4 id="颜色聚合向量"><a href="#颜色聚合向量" class="headerlink" title="颜色聚合向量"></a>颜色聚合向量</h4></li></ul><h2 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h2><h3 id="主成分分析法-PCA"><a href="#主成分分析法-PCA" class="headerlink" title="主成分分析法(PCA)"></a>主成分分析法(PCA)</h3><h3 id="独⽴成分分析法-ICA"><a href="#独⽴成分分析法-ICA" class="headerlink" title="独⽴成分分析法(ICA)"></a>独⽴成分分析法(ICA)</h3><h3 id="Fisher分析法-FDA"><a href="#Fisher分析法-FDA" class="headerlink" title="Fisher分析法(FDA)"></a>Fisher分析法(FDA)</h3><h3 id="相关分析法-CFS"><a href="#相关分析法-CFS" class="headerlink" title="相关分析法(CFS)"></a>相关分析法(CFS)</h3><h3 id="⾃组织映射法-SOM"><a href="#⾃组织映射法-SOM" class="headerlink" title="⾃组织映射法(SOM)"></a>⾃组织映射法(SOM)</h3><h3 id="Relief法"><a href="#Relief法" class="headerlink" title="Relief法"></a>Relief法</h3><h3 id="遗传算法-GA"><a href="#遗传算法-GA" class="headerlink" title="遗传算法(GA)"></a>遗传算法(GA)</h3><h3 id="模拟退⽕法"><a href="#模拟退⽕法" class="headerlink" title="模拟退⽕法"></a>模拟退⽕法</h3><h3 id="禁忌搜索法-Tabu"><a href="#禁忌搜索法-Tabu" class="headerlink" title="禁忌搜索法(Tabu)"></a>禁忌搜索法(Tabu)</h3><h3 id="基于流⾏的⾮线性降维⽅法"><a href="#基于流⾏的⾮线性降维⽅法" class="headerlink" title="基于流⾏的⾮线性降维⽅法"></a>基于流⾏的⾮线性降维⽅法</h3><h2 id="图像识别"><a href="#图像识别" class="headerlink" title="图像识别"></a>图像识别</h2><h3 id="统计模式识别"><a href="#统计模式识别" class="headerlink" title="统计模式识别"></a>统计模式识别</h3><h4 id="有监督学习"><a href="#有监督学习" class="headerlink" title="有监督学习"></a>有监督学习</h4><ul><li>基于概率统计的分类器</li><li>线性分类器</li><li>⼈⼯神经⽹络分类器</li><li>⽀持向量机<h4 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h4></li><li>划分⽅法</li><li>层次⽅法</li><li>密度⽅法</li><li>⽹格⽅法</li><li>图论算法</li><li>模型算法<h3 id="句法（结构）模式识别"><a href="#句法（结构）模式识别" class="headerlink" title="句法（结构）模式识别"></a>句法（结构）模式识别</h3></li></ul><h1 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h1><ol><li>受环境、光照、⽣产⼯艺和噪声等多重因素影响，检测系统的信噪⽐⼀般较低，微弱信号难以检出或不能与噪声有效区分；</li><li>对缺陷的描述不充分，缺陷的特征提取有效性不⾼，缺陷⽬标分割困难；同时，很难找到标准图像作为参照；</li><li>数据量庞⼤、冗余信息多、特征空间维度⾼，同时考虑到真正的机器视觉⾯对的对象和问题的多样性，从海量数据中提取有限缺陷信息的算法能⼒不⾜，实时性不⾼；</li><li>如何模拟⼈类⼤脑的信息处理功能去构建智能机器视觉系统还需要理论上的进⼀步研究；</li><li>在实际应⽤中准确率仍然与满⾜实际应⽤的需求尚有⼀定差距。</li></ol><h1 id="发展趋势"><a href="#发展趋势" class="headerlink" title="发展趋势"></a>发展趋势</h1><ol><li>研究视觉检测新理论和新⽅法，如发展主动视觉、增强视觉系统的智能学<br>习能⼒等；</li><li>结合视觉任务，引⼊先验⾼级知识的指导，同时将机器视觉、机器听觉、机器嗅觉、机器触觉等多信息相互融合，突破单⼀视觉信息的局限性；</li><li>研究更具鲁棒性的图像处理和分析算法 提⾼图像处理的有效性和和执⾏效率，降低算法的复杂度，提⾼识别的准确性；</li><li>研究完整3维场景重建⽅法；</li><li>采⽤统⼀⽽开放的标准，构建标准化、⼀体化和通⽤化的解决⽅案，标准化与个性化的进⼀步统⼀， 研发可靠性⾼#维护性好#便于不断完善和升级换代、⽹络化、⾃动化和智能化更⾼的机器视觉系统是今后的发展趋势。</li></ol><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><p><img src="https://s2.loli.net/2022/04/26/DNfYOGRmh1pJQlB.jpg" alt="综述思维导图"></p><h1 id="具体细节后补！！"><a href="#具体细节后补！！" class="headerlink" title="具体细节后补！！"></a>具体细节后补！！</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 缺陷检测 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> defect </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>（五）GoogLeNet</title>
       <link href="/2022/04/17/deeplearning/GoogLeNet/"/>
       <url>/2022/04/17/deeplearning/GoogLeNet/</url>
@@ -20,9 +45,9 @@
       
         <tags>
             
-            <tag> deeplearning </tag>
-            
             <tag> python </tag>
+            
+            <tag> deeplearning </tag>
             
             <tag> pytorch </tag>
             
@@ -49,9 +74,9 @@
       
         <tags>
             
-            <tag> deeplearning </tag>
-            
             <tag> python </tag>
+            
+            <tag> deeplearning </tag>
             
             <tag> pytorch </tag>
             
@@ -78,9 +103,9 @@
       
         <tags>
             
-            <tag> deeplearning </tag>
-            
             <tag> python </tag>
+            
+            <tag> deeplearning </tag>
             
             <tag> pytorch </tag>
             
@@ -107,9 +132,9 @@
       
         <tags>
             
-            <tag> deeplearning </tag>
-            
             <tag> python </tag>
+            
+            <tag> deeplearning </tag>
             
             <tag> pytorch </tag>
             
@@ -136,9 +161,9 @@
       
         <tags>
             
-            <tag> deeplearning </tag>
-            
             <tag> python </tag>
+            
+            <tag> deeplearning </tag>
             
             <tag> pytorch </tag>
             
